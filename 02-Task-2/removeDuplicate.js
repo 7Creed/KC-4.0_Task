@@ -7,8 +7,10 @@ function removeDuplicate(arr) {
     return acc;
   }, []);
 
+  return newArr;
+
   //   const newArr = arr.filter((el, i, arr) => arr.indexOf(el) === i);
 }
 
-removeDuplicate([1, 2, 2, 3, 3, 3, 4, 5, 5]);
-// console.log(removeDuplicate([1, 2, 2, 3, 3, 3, 4, 5, 5]));
+// removeDuplicate([1, 2, 2, 3, 3, 3, 4, 5, 5]);
+console.log(removeDuplicate([1, 2, 2, 3, 3, 3, 4, 5, 5]));
