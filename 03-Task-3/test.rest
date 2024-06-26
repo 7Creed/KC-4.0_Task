@@ -1,0 +1,35 @@
+
+GET http://localhost:5000/taskArray
+
+###
+GET http://localhost:5000/tasks/{id}
+
+###
+PUT http://localhost:5000/tasks/d304c44a-8638-40be-ae1c-b23288c01d73
+content-Type: application/json
+
+{
+     "title": "Task",
+     "body": "This task na omo"
+}
+
+###
+PATCH http://localhost:5000/tasks/d304c44a-8638-40be-ae1c-b23288c01d73/status
+content-Type: application/json
+
+{
+     "status": "completed"
+}
+
+###
+POST http://localhost:5000/tasks
+content-Type: application/json
+
+{
+    "title": "Simple Task",
+    "body": "This is a simple task",
+    "status": "pending"
+}
+
+###
+DELETE http://localhost:5000/tasks/d304c44a-8638-40be-ae1c-b23288c01d73
