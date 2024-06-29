@@ -1,0 +1,76 @@
+# GET https://google.com
+
+# GET http://127.0.0.1:3000
+
+# POST http://localhost:3000/login
+# content-Type: application/json
+
+# {
+#     "username": "creed",
+#     "password": "123456"
+# }
+
+# GET http://localhost:3000/products
+
+# ###
+# GET http://localhost:3000/product/{id}
+
+# ###
+# PUT http://localhost:3000/product/{id}
+# content-Type: application/json
+
+# {
+#     "name": "Glass",
+#     "price": "9000"
+# }
+
+# ###
+# POST http://localhost:3000/product
+# content-Type: application/json
+
+# {
+#     "name": "Glass cup",
+#     "price": "5000"
+# }
+
+# ###
+# DELETE http://localhost:3000/product/{id}
+
+GET http://localhost:3000/products
+
+###
+GET http://localhost:3000/product/667dce89244a0adbb5c909e1
+
+###
+PUT http://localhost:3000/product/667ddac18057b4b6c260fc73
+content-Type: application/json
+
+{
+   "productName": "House updated",
+    "productPrice": "120000"
+}
+
+###
+POST http://localhost:3000/product
+content-Type: application/json
+
+{
+    "productName": "House",
+    "productPrice": "365000000"
+}
+
+###
+DELETE http://localhost:3000/product/{id}
+
+
+###
+POST http://localhost:3000/new-user
+content-Type: application/json
+
+{
+    "fullName": "SLide",
+    "email": "slide@gmail.com",
+    "password": "jun66"
+}
+
+
