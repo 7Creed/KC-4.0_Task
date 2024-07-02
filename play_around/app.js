@@ -126,12 +126,14 @@ server.listen(3000, function () {
 });
 */
 
+/*
 // CLASS 4
 // After installing mongoDb
 const express = require("express");
 const logger = require("morgan");
 const uid = require("uuid");
 const mongoose = require("mongoose");
+// installing bcrypt for hashing passwords
 const bcrypt = require("bcrypt");
 
 const server = express();
@@ -242,6 +244,39 @@ server.post("/new-user", async (req, res) => {
     message: "User created successfully",
   });
 });
+
+server.listen(3000, function () {
+  console.log("Server is up");
+});
+*/
+
+// CLASS 5
+// Spliting codes in different folders
+const express = require("express");
+const logger = require("morgan");
+const uid = require("uuid");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+
+const server = express();
+
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(logger("dev"));
+
+const connection = mongoose.connect("mongodb://localhost:27017/kodecamp4");
+connection
+  .then(() => {
+    console.log("Connected successfully to mongodb");
+  })
+  .catch((error) => {
+    console.log("An error occurred while trying to connect. Error: ", error);
+  });
+
+server.use("/products", productRoutes);
+server.use("/user", userRoutes);
 
 server.listen(3000, function () {
   console.log("Server is up");

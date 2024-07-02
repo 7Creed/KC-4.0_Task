@@ -39,36 +39,45 @@
 GET http://localhost:3000/products
 
 ###
-GET http://localhost:3000/product/667dce89244a0adbb5c909e1
+GET http://localhost:3000/products/668005252c13d8250471e5a6
 
 ###
-PUT http://localhost:3000/product/667ddac18057b4b6c260fc73
+PUT http://localhost:3000/products/6680037c2c13d8250471e5a2
 content-Type: application/json
 
 {
-   "productName": "House updated",
+   "productName": "Glass updated",
     "productPrice": "120000"
 }
 
 ###
-POST http://localhost:3000/product
+POST http://localhost:3000/products
 content-Type: application/json
 
 {
-    "productName": "House",
-    "productPrice": "365000000"
+    "productName": "House Duplex",
+    "productPrice": "3600000000"
 }
 
 ###
-DELETE http://localhost:3000/product/{id}
+DELETE http://localhost:3000/products/6680bf36c16c0d825b8593d2
 
 
 ###
-POST http://localhost:3000/new-user
+POST http://localhost:3000/user/register
 content-Type: application/json
 
 {
-    "fullName": "SLide",
+    "fullName": "SLide Green",
+    "email": "slide@gmail.com",
+    "password": "jun66"
+}
+
+###
+POST http://localhost:3000/user/login
+content-Type: application/json
+
+{
     "email": "slide@gmail.com",
     "password": "jun66"
 }
