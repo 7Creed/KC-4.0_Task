@@ -250,6 +250,7 @@ server.listen(3000, function () {
 });
 */
 
+/*
 // CLASS 5
 // Spliting codes in different folders
 const express = require("express");
@@ -279,5 +280,40 @@ server.use("/products", productRoutes);
 server.use("/user", userRoutes);
 
 server.listen(3000, function () {
+  console.log("Server is up");
+});
+*/
+
+// CLASS 6
+// Installing dotenv
+const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const authRouter = require("./routesAndControllers/authenticationRoutes");
+// const bcrypt = require("bcrypt");
+// const userRoutes = require("./routes/userRoutes");
+// const productRoutes = require("./routes/productRoutes");
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// server.use(logger("dev"));
+
+const connection = mongoose.connect(process.env.MONGODB_URL);
+connection
+  .then(() => {
+    console.log("Connected successfully to mongodb");
+  })
+  .catch((error) => {
+    console.log("An error occurred while trying to connect. Error: ", error);
+  });
+
+// server.use("/products", productRoutes);
+// server.use("/user", userRoutes);
+
+app.use("/auth", authRouter);
+
+app.listen(process.env.PORT, function () {
   console.log("Server is up");
 });
