@@ -290,6 +290,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const authRouter = require("./routesAndControllers/authenticationRoutes");
+const productRoutes = require("./routesAndControllers/productRoutes");
 // const bcrypt = require("bcrypt");
 // const userRoutes = require("./routes/userRoutes");
 // const productRoutes = require("./routes/productRoutes");
@@ -301,6 +302,7 @@ app.use(express.urlencoded({ extended: false }));
 // server.use(logger("dev"));
 
 const connection = mongoose.connect(process.env.MONGODB_URL);
+console.log(process.env.MONGODB_URL);
 connection
   .then(() => {
     console.log("Connected successfully to mongodb");
@@ -310,9 +312,9 @@ connection
   });
 
 // server.use("/products", productRoutes);
-// server.use("/user", userRoutes);
 
 app.use("/auth", authRouter);
+app.use("/product", productRoutes);
 
 app.listen(process.env.PORT, function () {
   console.log("Server is up");

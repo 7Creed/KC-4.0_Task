@@ -17,81 +17,47 @@ const authRouter = express.Router();
 // console.log("Generated Token:", token);
 
 // From here
-// authRouter.post("/register", async (req, res) => {
-//   const { fullName, email, password } = req.body;
-
-//   const hashedPassword = bcrypt.hashSync(password, 10);
-
-//   const token = v4();
-
-//   try {
-//     console.log("this one");
-//     await userModel.create({
-//       fullName,
-//       email,
-//       password: hashedPassword,
-//       authToken: token,
-//       authPurpose: "verify-email",
-//     });
-
-//     // "chideraamazingkids@gmail.com",
-//     await sendEmail(
-//       email,
-//       "verify email",
-//       `Hello ${fullName}, the link to verify your email is http://localhost:3000/auth/verify-email/${token}`
-//     );
-
-//     res.status(201).send({
-//       isSuccessful: true,
-//       message: "Kindly check your email to verify it.",
-//     });
-//   } catch (error) {
-//     console.log("our error:", error);
-//   }
-// });
-
-// New
-// const express = require("express");
-// const { userModel } = require("../models/userModel");
-// const bcrypt = require("bcrypt");
-// const { v4 } = require("uuid");
-// const { sendEmail } = require("../utils/emailUtil");
-// const authRouter = express.Router();
-// const jwt = require("jsonwebtoken");
-
 authRouter.post("/register", async (req, res) => {
   const { fullName, email, password } = req.body;
+
+  // const doesUserExist = await userModel.findOne({ email });
+
+  // if (doesUserExist) {
+  //   res.status(400).send({
+  //     isSuccessful: true,
+  //     message: "User already exist",
+  //   });
+  //   return;
+  // }
 
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   const token = v4();
 
-  await userModel.create({
-    fullName,
-    email,
-    password: hashedPassword,
-    authToken: token,
-    authPurpose: "verify-email",
-  });
+  try {
+    console.log("this one");
+    await userModel.create({
+      fullName,
+      email,
+      password: hashedPassword,
+      authToken: token,
+      authPurpose: "verify-email",
+    });
 
-  console.log(process.env.EMAIL_USERNAME);
-  console.log(process.env.EMAIL_PASSWORD);
-  await sendEmail(
-    email,
-    "Verify Email",
-    "Hello" +
-      " " +
-      fullName +
-      " " +
-      "link to verify email is http://localhost:3000/verify-email/" +
-      " " +
-      token
-  );
+    // "chideraamazingkids@gmail.com",
+    await sendEmail(
+      email,
+      "verify email",
+      `Hello ${fullName}, the link to verify your email is http://localhost:3000/auth/verify-email/${token}`
+    );
 
-  res.status(201).send({
-    isSuccessful: true,
-    message: "Kindly check your email to verify it",
-  });
+    res.status(201).send({
+      isSuccessful: true,
+      message: "Kindly check your email to verify it.",
+    });
+  } catch (error) {
+    console.log("our error:", error);
+  }
 });
 
 authRouter.get("/verify-email/:token", async (req, res) => {
@@ -117,6 +83,8 @@ authRouter.get("/verify-email/:token", async (req, res) => {
     },
     {
       isEmailVerified: true,
+      authToken: "",
+      authPurpose: "",
     }
   );
 
@@ -149,10 +117,13 @@ authRouter.post("/login", async (req, res) => {
     return;
   }
 
-  const userToken = jwt.sign({
-    userId: user._id,
-    email: user.email,
-  });
+  const userToken = jwt.sign(
+    {
+      userId: user._id,
+      email: user.email,
+    },
+    process.env.AUTH_KEY
+  );
 
   res.send({
     isSuccessful: true,
