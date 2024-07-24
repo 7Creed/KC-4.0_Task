@@ -284,6 +284,7 @@ server.listen(3000, function () {
 });
 */
 
+/*
 // CLASS 6
 // Installing dotenv
 const express = require("express");
@@ -312,6 +313,59 @@ connection
   });
 
 // server.use("/products", productRoutes);
+
+app.use("/auth", authRouter);
+app.use("/product", productRoutes);
+
+app.listen(process.env.PORT, function () {
+  console.log("Server is up");
+});
+*/
+
+// CLASS 12
+// Promises, Middleware
+const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const authRouter = require("./routesAndControllers/authenticationRoutes");
+const productRoutes = require("./routesAndControllers/productRoutes");
+// const bcrypt = require("bcrypt");
+// const userRoutes = require("./routes/userRoutes");
+// const productRoutes = require("./routes/productRoutes");
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// server.use(logger("dev"));
+
+const connection = mongoose.connect(process.env.MONGODB_URL);
+// console.log(process.env.MONGODB_URL);
+connection
+  .then(() => {
+    console.log("Connected successfully to mongodb");
+  })
+  .catch((error) => {
+    console.log("An error occurred while trying to connect. Error: ", error);
+  });
+
+// server.use("/products", productRoutes);
+
+// Application level middle ware
+app.use(function (req, res, next) {
+  console.log("First midddleware executed");
+  next();
+  // res.send("Service is under maintenance");
+});
+app.use(function (req, res, next) {
+  console.log("Second midddleware executed");
+  next();
+});
+// // Route level middle ware
+// function (req, res, next) {
+//   console.log("Product midddleware is being executed");
+//   next();
+// }
 
 app.use("/auth", authRouter);
 app.use("/product", productRoutes);

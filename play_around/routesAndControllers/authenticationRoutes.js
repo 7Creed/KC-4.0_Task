@@ -35,7 +35,6 @@ authRouter.post("/register", async (req, res) => {
   const token = v4();
 
   try {
-    console.log("this one");
     await userModel.create({
       fullName,
       email,
@@ -44,7 +43,6 @@ authRouter.post("/register", async (req, res) => {
       authPurpose: "verify-email",
     });
 
-    // "chideraamazingkids@gmail.com",
     await sendEmail(
       email,
       "verify email",

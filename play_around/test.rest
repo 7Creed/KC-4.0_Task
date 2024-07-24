@@ -122,4 +122,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjkxY
 
 
 ###
-# DELETE http://localhost:3000/products/6680bf36c16c0d825b8593d2
+DELETE http://localhost:3000/product/66a0800114fd1d89bd9f913f
+content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjkxY2ZlZmUxYWFjODkxOTBiMDkwOTIiLCJlbWFpbCI6IjRjaGltYWJpa2FAZ21haWwuY29tIiwiaWF0IjoxNzIwODMzMDkxfQ.Y2hdEu_yC9foufRmXbIVOY6E-4aUaTue1kPt63WtmbQ

@@ -27,6 +27,22 @@ function checkIfLoggedIn(req, res, next) {
   }
 }
 
+async function checkBeforeDelete(req, res, next) {
+  // console.log(res, req);
+  const product = await productModel.findById(req.params.id);
+  // console.log("AEnter here");
+
+  if (req.userDetails.userId.toString() == product?.productOwner.toString()) {
+    console.log("Product midddleware is being executed");
+    next();
+  } else {
+    res.status(401).send({
+      message:
+        "You can not delete this because you are not the owner of the product",
+    });
+  }
+}
+
 productRouter.use(checkIfLoggedIn);
 
 productRouter.get("/products", async (req, res) => {
@@ -46,6 +62,13 @@ productRouter.post("/product", async (req, res) => {
   });
 
   res.send({ newProduct });
+});
+
+productRouter.delete("/:id", checkBeforeDelete, async (req, res) => {
+  await productModel.findByIdAndDelete(req.params.id);
+  res.send({
+    message: "Product has been deleted successfully",
+  });
 });
 
 module.exports = productRouter;
